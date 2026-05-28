@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback} from "react";
 import API from "../services/api";
 
 export default function Dashboard() {
@@ -18,17 +18,17 @@ export default function Dashboard() {
     search: "",
   });
 
-  const fetchTransactions = async () => {
+  const fetchTransactions = useCallback(async () => {
     const params = new URLSearchParams(filters).toString();
 
     const res = await API.get(`/transactions?${params}`);
 
     setTransactions(res.data);
-  };
+  }, [filters]);
 
   useEffect(() => {
     fetchTransactions();
-  }, [filters]);
+  }, [fetchTransactions]);
 
   const addTransaction = async (e) => {
     e.preventDefault();
