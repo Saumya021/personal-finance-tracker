@@ -28,7 +28,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchTransactions();
-  }, []);
+  }, [filters]);
 
   const addTransaction = async (e) => {
     e.preventDefault();
